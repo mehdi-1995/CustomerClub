@@ -45,4 +45,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function tier()
+    {
+        return $this->belongsTo(Tier::class);
+    }
+
+    public function points()
+    {
+        return $this->hasMany(Point::class);
+    }
+
+    public function tierHistories()
+    {
+        return $this->hasMany(TierHistory::class);
+    }
+
+    // محاسبه امتیاز قابل استفاده
+    public function availablePoints()
+    {
+        return $this->points()
+            ->where('is_used', false)
+            ->where(function($query) {
+                $query->whereNull('expires_at')
+                      ->orWhere('expires_at', '>', now());
+            })
+            ->sum('amount');
+    }
+
 }
