@@ -16,8 +16,6 @@ use App\Repositories\CustomerClub\{
 };
 
 
-
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -38,6 +36,26 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TierRepositoryInterface::class,
             TierRepository::class
+        );
+
+        $this->app->bind(
+            \App\Interfaces\CustomerClub\ActivityTypeRepositoryInterface::class,
+            \App\Repositories\CustomerClub\ActivityTypeRepository::class
+        );
+
+        $this->app->bind(
+            \App\Interfaces\CustomerClub\TierRepositoryInterface::class,
+            \App\Repositories\CustomerClub\TierRepository::class
+        );
+
+        $this->app->bind(
+            \App\Interfaces\CustomerClub\ActivityServiceInterface::class,
+            \App\Services\CustomerClub\ActivityService::class
+        );
+
+        $this->app->bind(
+            \App\Interfaces\CustomerClub\ActivityTypeRepositoryInterface::class,
+            \App\Repositories\CustomerClub\ActivityTypeRepository::class
         );
     }
 

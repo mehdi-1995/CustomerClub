@@ -2,8 +2,9 @@
 
 namespace App\Services\CustomerClub;
 
-use App\Repositories\CustomerClub\UserRepositoryInterface;
-use App\Repositories\CustomerClub\TierRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
+use App\Interfaces\CustomerClub\TierRepositoryInterface;
+use App\Interfaces\CustomerClub\UserRepositoryInterface;
 
 class UserService
 {
@@ -22,8 +23,10 @@ class UserService
         return $this->tierRepository->all();
     }
 
-    public function getUserWithDetails($userId)
+    public function getUserWithDetails()
     {
+        $userId = Auth::id();
         return $this->userRepository->findWithDetails($userId);
     }
+
 }

@@ -9,7 +9,8 @@ use App\Services\CustomerClub\{
     TierService,
     ActivityService
 };
-class UserController extends Controller
+
+class CustomerClubController extends Controller
 {
     public function __construct(
         private UserService $userService,
@@ -18,28 +19,12 @@ class UserController extends Controller
         private ActivityService $activityService
     ) {}
 
-    public function index()
-    {
-        $users = $this->userService->getPaginatedUsers(10);
-        $tiers = $this->userService->getAllTiers();
-
-        return view('customer-club.users.index', compact('users', 'tiers'));
-    }
-
-    public function show($userId)
-    {
-        $user = $this->userService->getUserWithDetails($userId);
-        return view('customer-club.users.show', compact('user'));
-    }
-
     public function dashboard()
     {
         $user = $this->userService->getUserWithDetails();
         $tier = $this->tierService->getUserTierWithProgress($user->id);
         $activities = $this->activityService->getActiveActivities();
         $pointsHistory = $this->pointService->getUserPointsHistory($user->id);
-
-        dd($tier);
 
         return view('customer-club.dashboard', compact(
             'user',
@@ -48,6 +33,4 @@ class UserController extends Controller
             'pointsHistory'
         ));
     }
-
-
 }

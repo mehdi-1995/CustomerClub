@@ -4,6 +4,7 @@ namespace App\Interfaces\CustomerClub;
 
 use App\Models\Point;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface PointRepositoryInterface
 {
@@ -21,4 +22,7 @@ interface PointRepositoryInterface
      * دریافت مجموع امتیازات قابل استفاده کاربر
      */
     public function getAvailablePointsSum(int $userId): int;
+
+    public function getUserPointsHistory(int $userId, int $perPage = 10): LengthAwarePaginator;
+
 }

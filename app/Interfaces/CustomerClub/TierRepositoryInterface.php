@@ -21,4 +21,8 @@ interface TierRepositoryInterface
      * دریافت سطح پیش‌فرض
      */
     public function getDefaultTier(): Tier;
+
+    public function getUserPoints(int $userId): int;
+
+    public function getNextTier(int $currentTierId);
 }

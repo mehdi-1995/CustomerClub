@@ -2,9 +2,10 @@
 
 namespace App\Repositories\CustomerClub;
 
-use App\Interfaces\CustomerClub\PointRepositoryInterface;
 use App\Models\Point;
 use Illuminate\Support\Collection; // این خط را اضافه کنید
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Interfaces\CustomerClub\PointRepositoryInterface;
 
 class PointRepository implements PointRepositoryInterface
 {
@@ -30,5 +31,13 @@ class PointRepository implements PointRepositoryInterface
                       ->orWhere('expires_at', '>', now());
             })
             ->sum('amount');
+    }
+
+    public function getUserPointsHistory(int $userId, int $perPage = 10): LengthAwarePaginator
+    {
+        return Point::where('user_id', $userId)
+            ->with('activityType')
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
     }
 }

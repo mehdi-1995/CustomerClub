@@ -21,4 +21,5 @@ interface UserRepositoryInterface
      * به‌روزرسانی امتیازات کاربر
      */
     public function updateLoyaltyPoints(int $userId, int $points): bool;
+
 }

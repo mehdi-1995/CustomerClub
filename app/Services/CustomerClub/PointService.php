@@ -2,8 +2,8 @@
 
 namespace App\Services\CustomerClub;
 
-use App\Repositories\CustomerClub\PointRepositoryInterface;
-use App\Repositories\CustomerClub\ActivityTypeRepositoryInterface;
+use App\Interfaces\CustomerClub\ActivityTypeRepositoryInterface;
+use App\Interfaces\CustomerClub\PointRepositoryInterface;
 
 class PointService
 {
@@ -23,5 +23,10 @@ class PointService
             'amount' => $points,
             'notes' => $data['notes'] ?? null
         ]);
+    }
+
+    public function getUserPointsHistory(int $userId, int $perPage = 10)
+    {
+        return $this->pointRepository->getUserPointsHistory($userId, $perPage);
     }
 }

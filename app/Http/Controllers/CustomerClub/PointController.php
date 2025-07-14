@@ -12,13 +12,14 @@ class PointController extends Controller
         private PointService $pointService
     ) {}
 
-    public function store(StorePointRequest $request, $userId)
+    public function store(StorePointRequest $request)
     {
         $this->pointService->addPointsToUser(
-            $userId,
+            auth()->id(),
             $request->validated()
         );
 
-        return redirect()->back()->with('success', 'امتیاز با موفقیت افزوده شد!');
+        return redirect()->back()
+            ->with('success', 'امتیاز با موفقیت ثبت شد!');
     }
 }
