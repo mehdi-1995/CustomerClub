@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CustomerClub;
 use App\Http\Requests\CustomerClub\StorePointRequest;
 use App\Services\CustomerClub\PointService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PointController extends Controller
 {
@@ -15,7 +16,7 @@ class PointController extends Controller
     public function store(StorePointRequest $request)
     {
         $this->pointService->addPointsToUser(
-            auth()->id(),
+            Auth::id(),
             $request->validated()
         );
 
